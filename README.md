@@ -1,13 +1,12 @@
-## Humble Words
-A simple bash word game. Guess what word the game has chosen; it will tell you whether each guess precedes or follows the target word, alphabetically. Only guesses which give you information (change the bounds) are included in the count.
+# Humble Words
 
 ## Example
 ```
 relsqui@albatross:~$ cd humblewords/
 relsqui@albatross:~/humblewords$ ./humble.sh 
 
-I'm thinking of a word. Guess what it is, and I'll tell you whether your
-guess comes before or after my word, alphabetically.
+I'm thinking of a word. Guess what it is, and I'll tell you whether your guess
+comes before or after my word, alphabetically. To quit, type Ctrl-C or Ctrl-D.
 
 Guess 1: moose
 It's before moose.

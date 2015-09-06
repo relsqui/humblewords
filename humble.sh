@@ -17,7 +17,7 @@ end_game() {
     exit 0
 }
 
-# Show the word when the player gives up with ctrl-c.
+# Show the word when the player gives up.
 trap end_game exit
 
 TARGET=`sort -R $WORD_LIST | head -n 1`
@@ -27,7 +27,8 @@ GUESSES=1
 
 echo
 echo "I'm thinking of a word. Guess what it is, and I'll tell you whether your guess \
-comes before or after my word, alphabetically." | fmt -$WRAPWIDTH
+comes before or after my word, alphabetically. To quit, type Ctrl-C or Ctrl-D." |\
+fmt -$WRAPWIDTH
 echo
 
 while read -p "Guess $GUESSES: " GUESS && [[ "$GUESS" != "$TARGET" ]]; do
