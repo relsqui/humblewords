@@ -26,8 +26,8 @@ UPPER=`tail -n 1 $WORD_LIST`
 GUESSES=1
 
 echo
-echo "I'm thinking of a word. Guess what it is, and I'll tell you whether your guess \
-comes before or after my word, alphabetically. To quit, type Ctrl-C or Ctrl-D." |\
+echo "I'm thinking of a word. Guess what it is, and I'll tell you whether my word \
+comes before or after your guess, alphabetically. To quit, type Ctrl-C or Ctrl-D." |\
 fmt -$WRAPWIDTH
 echo
 
