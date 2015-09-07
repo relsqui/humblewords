@@ -25,6 +25,7 @@ Options:
                         This selection can be sketchier than the above list,
                         since they won't be chosen as targets.
         -h, --help      Display help.
+        -q, --quiet     Quiet mode. Suppress unnecessary output.
 ```
 
 ## Example

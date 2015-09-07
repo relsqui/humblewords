@@ -2,13 +2,14 @@
 
 # Configure command line arguments.
 
-ARGS=`getopt -o f:g:h -l file:,guesses:,help -- "$@"`
+ARGS=`getopt -o f:g:hq -l file:,guesses:,help,quiet -- "$@"`
 eval set -- "$ARGS"
 
 # Set defaults.
 
 WORD_LIST="word_list.txt"
 VALID_GUESSES="valid_guesses.txt"
+VERBOSE="yes"
 
 # Process arguments.
 
@@ -46,9 +47,14 @@ Options:
                         This selection can be sketchier than the above list,
                         since they won't be chosen as targets.
         -h, --help      Display help.
+        -q, --quiet     Quiet mode. Suppress unnecessary output.
 
 EOF
             exit 0
+        ;;
+        -q|--quiet)
+            VERBOSE=""
+            shift
         ;;
         --)
             shift
@@ -102,16 +108,21 @@ plural_es() {
 trap end_game exit
 
 end_game() {
-    echo
     if [[ "$GUESS" == "$TARGET" ]]; then
-        ES=`plural_es $GUESSES`
-        echo "You got it in $GUESSES guess$ES!"
+        if [ $VERBOSE ]; then
+            echo
+            ES=`plural_es $GUESSES`
+            echo "You got it in $GUESSES guess$ES!"
+        fi
     else
         echo
-        let GUESSES=$GUESSES-1
-        ES=`plural_es $GUESSES`
         echo "The word was: $TARGET"
-        echo "You used $GUESSES guess$ES."
+        if [ $VERBOSE ]; then
+            let GUESSES=$GUESSES-1
+            ES=`plural_es $GUESSES`
+            echo
+            echo "You used $GUESSES guess$ES."
+        fi
     fi
     exit 0
 }
@@ -123,14 +134,16 @@ LOWER=`head -n 1 $WORD_LIST`
 UPPER=`tail -n 1 $WORD_LIST`
 GUESSES=1
 
-echo
-cat << EOF
-I'm thinking of a word. Guess what it is, and I'll tell you whether my word
-comes before or after your guess, alphabetically. (The possibility count is the
-number of words I could have chosen in the range you've narrowed it down to so
-far.) To quit, type Ctrl-C or Ctrl-D.
+if [ $VERBOSE ]; then
+    echo
+    cat << EOF
+    I'm thinking of a word. Guess what it is, and I'll tell you whether my word
+    comes before or after your guess, alphabetically. (The possibility count is the
+    number of words I could have chosen in the range you've narrowed it down to so
+    far.) To quit, type Ctrl-C or Ctrl-D.
 EOF
-echo
+    echo
+fi
 
 # Main loop.
 
@@ -142,17 +155,21 @@ while read -p "Guess $GUESSES: " GUESS && [[ "$GUESS" != "$TARGET" ]]; do
                 let GUESSES=$GUESSES+1
                 LOWER="$GUESS"
             fi
-            echo "It's after $GUESS."
+            if [ $VERBOSE ]; then
+                echo "It's after $GUESS."
+            fi
         else
             if [[ "$GUESS" < "$UPPER" ]]; then
                 let GUESSES=$GUESSES+1
                 UPPER="$GUESS"
             fi
-            echo "It's before $GUESS."
+            if [ $VERBOSE ]; then
+                echo "It's before $GUESS."
+            fi
         fi
     else
         echo "Sorry, I don't know that word."
-        if echo "$GUESS" | grep -q '[^a-z]'; then
+        if echo "$GUESS" | grep -q '[^a-z]' && [ $VERBOSE ]; then
             echo "(I don't know any words with non-letters or capitals.)"
         fi
     fi
@@ -164,6 +181,9 @@ while read -p "Guess $GUESSES: " GUESS && [[ "$GUESS" != "$TARGET" ]]; do
         let POSSIBILITIES=$UPPER_NO-$LOWER_NO
     fi
     IES=`plural_ies $POSSIBILITIES`
-    echo "Range: $LOWER to $UPPER ($POSSIBILITIES possibilit$IES)."
-    echo
+    echo -n "Range: $LOWER to $UPPER ($POSSIBILITIES possibilit$IES). "
+    if [ $VERBOSE ]; then
+        echo
+        echo
+    fi
 done
