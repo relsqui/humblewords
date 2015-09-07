@@ -2,43 +2,47 @@
 
 ## Example
 ```
+relsqui@albatross:~$ git clone git@github.com:relsqui/humblewords.git
+[...]
 relsqui@albatross:~$ cd humblewords/
 relsqui@albatross:~/humblewords$ ./humble.sh 
 
-I'm thinking of a word. Guess what it is, and I'll tell you whether your guess
-comes before or after my word, alphabetically. To quit, type Ctrl-C or Ctrl-D.
+I'm thinking of a word. Guess what it is, and I'll tell you whether my word
+comes before or after your guess, alphabetically. (The possibility count is
+the number of words I could have chosen in the range you've narrowed it down
+to so far.) To quit, type Ctrl-C or Ctrl-D.
 
-Guess 1: moose
-It's before moose.
-Range: a to moose
+Guess 1: late
+It's after late.
+Range: late to zone (2136 possibilities).
 
-Guess 2: fact
-It's before fact.
-Range: a to fact
+Guess 2: sear
+It's after sear.
+Range: sear to zone (956 possibilities).
 
-...
+[...]
 
-Guess 8: effable
-It's after effable.
-Range: effable to enemy
+Guess 6: sour
+It's before sour.
+Range: sear to sour (224 possibilities).
 
-Guess 9: eligible
-It's before eligible.
-Range: effable to eligible
+Guess 7: sire
+It's after sire.
+Range: sire to sour (82 possibilities).
 
-...
+[...]
 
-Guess 16: electable
-It's after electable.
-Range: electable to electric
+Guess 17: skill
+It's after skill.
+Range: skill to skit (4 possibilities).
 
-Guess 17: elector
-It's before elector.
-Range: electable to elector
+Guess 18: skin
+It's after skin.
+Range: skin to skit (2 possibilities).
 
-Guess 18: election
+Guess 19: skip
 
-You got it in 18 guesses!
+You got it in 19 guesses!
 ```
 
 ## Configuration
