@@ -55,21 +55,28 @@ EOF
             break
         ;;
         *)
-            echo "Unrecognized option: '$1'"
-            echo "$(basename $0) -h for help."
+            echo "Unrecognized option: '$1'" >&2
+            echo "$(basename $0) -h for help." >&2
             exit 1
     esac
 done
 
+shift
+if [ "$1" ]; then
+    echo "Unrecognized option: '$1'" >&2
+    echo "$(basename $0) -h for help." >&2
+    exit 1
+fi
+
 # Make sure word lists are valid.
 
 if [[ ! -r "$WORD_LIST" ]]; then
-    echo "Can't find or read word file: $WORD_LIST"
+    echo "Can't find or read word file: $WORD_LIST" >&2
     exit 2
 fi
 
 if [[ ! -r "$VALID_GUESSES" ]]; then
-    echo "Can't find or read word file: $VALID_GUESSES"
+    echo "Can't find or read word file: $VALID_GUESSES" >&2
     exit 2
 fi
 
