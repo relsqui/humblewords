@@ -1,5 +1,32 @@
 # Humble Words
 
+## Description and Usage
+```
+relsqui@albatross:~/humblewords$ ./humble.sh -h
+usage: humble.sh [-f WORD_FILE] [-g GUESS_FILE] [-h]
+
+Humble Words, a simple guessing game. Try to guess the target word based on
+clues of whether it comes before or after your previous guesses alphabetically.
+A running total of guesses includes only the ones that gave you new information
+(not the ones that weren't recognized or didn't narrow your search space. You
+can also see the number of words the game might have chosen that are in the
+current range after each guess.
+
+The default word file is adapted from the top 5000 most frequent words list
+published by the Corpus of Contemporary American English.
+
+Source: https://github.com/relsqui/humblewords
+
+Options:
+        -f, --file      Specify the location of a list of words to use as
+                        potential targets. It should have one word per line.
+        -g, --guesses   Specify the location of a list of words to recognize
+                        as valid guesses. It should have one word per line.
+                        This selection can be sketchier than the above list,
+                        since they won't be chosen as targets.
+        -h, --help      Display help.
+```
+
 ## Example
 ```
 relsqui@albatross:~$ git clone git@github.com:relsqui/humblewords.git
@@ -44,12 +71,6 @@ Guess 19: skip
 
 You got it in 19 guesses!
 ```
-
-## Configuration
-You can change the word lists in use and the word wrap width by editing the variables in humble.sh.
-
-## What are the two word lists?
-`word_list.txt` is the list from which the game will select words. These are selected from COCA's 5000 most frequent American English words, omitting any with non-ASCII or uppercase. `valid_guesses.txt` is based on /usr/share/dict/words, with the same filters. They're separate to ensure that the game will only choose well-known words but you can guess more obscure ones if you wish.
 
 ## Why "Humble"?
 On the valid guess list, it's halfway between "binary" and "search."
