@@ -30,7 +30,7 @@ usage: $(basename $0) [-f WORD_FILE] [-g GUESS_FILE] [-h]
 Humble Words, a simple guessing game. Try to guess the target word based on
 clues of whether it comes before or after your previous guesses alphabetically.
 A running total of guesses includes only the ones that gave you new information
-(not the ones that weren't recognized or didn't narrow your search space. You
+(not the ones that weren't recognized or didn't narrow your search space). You
 can also see the number of words the game might have chosen that are in the
 current range after each guess.
 
